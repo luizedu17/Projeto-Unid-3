@@ -5,7 +5,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEEE.NUMERIC_STD.ALL; 
 
 entity BlocoControle is
-    Port  (A : in  STD_LOGIC_VECTOR (7 downto 0);
+    Port(
+		   A : in  STD_LOGIC_VECTOR (7 downto 0);
            B : in  STD_LOGIC_VECTOR (7 downto 0);
            Opcode : in  STD_LOGIC_VECTOR (2 downto 0);
            Clock : in  STD_LOGIC;
@@ -99,6 +100,13 @@ begin
                         EnL <= '0';
                         EnA <= '0';
                         EnS <= '1';
+					when "111" =>   -- JUMP: Y recebe A
+        				-- desabilita todos os blocos internos
+        				En_logico      <= '0';
+        				En_aritmetico  <= '0';
+       					En_sequencial  <= '0';
+						-- operação termina imediatamente
+        				Done_reg       <= '1';
                     when others =>
                         EnL <= '0';
                         EnA <= '0';
@@ -133,9 +141,11 @@ begin
              Y_aritmetico when "100",
              Y_aritmetico when "101",
              Y_sequencial when "110",
+			 A_reg when "111",
              (others => '0') when others;
 				 
     Overflow <= Overflow_aritmetico or Overflow_sequencial;
     
 	 Done <= Done_reg; --seta que a operação foi concluída
 end Behavioral;
+
