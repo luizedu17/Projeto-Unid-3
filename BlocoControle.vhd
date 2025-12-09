@@ -101,11 +101,9 @@ begin
                         EnA <= '0';
                         EnS <= '1';
 					when "111" =>   -- JUMP: Y recebe A
-        				-- desabilita todos os blocos internos
         				En_logico      <= '0';
         				En_aritmetico  <= '0';
        					En_sequencial  <= '0';
-						-- operação termina imediatamente
         				Done_reg       <= '1';
                     when others =>
                         EnL <= '0';
@@ -144,8 +142,11 @@ begin
 			 A_reg when "111",
              (others => '0') when others;
 				 
-    Overflow <= Overflow_aritmetico or Overflow_sequencial;
+		Overflow <= Overflow_aritmetico when (Opcode = "100" or Opcode = "101") else
+            	Overflow_sequencial when Opcode = "110" else
+            	'0';
     
 	 Done <= Done_reg; --seta que a operação foi concluída
 end Behavioral;
+
 
