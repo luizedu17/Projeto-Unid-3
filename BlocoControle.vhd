@@ -101,9 +101,9 @@ begin
                         EnA <= '0';
                         EnS <= '1';
 					when "111" =>   -- JUMP: Y recebe A
-        				En_logico      <= '0';
-        				En_aritmetico  <= '0';
-       					En_sequencial  <= '0';
+        				EnL <= '0';
+        				EnA <= '0';
+       					EnS <= '0';
         				Done_reg       <= '1';
                     when others =>
                         EnL <= '0';
@@ -148,5 +148,6 @@ begin
     
 	 Done <= Done_reg; --seta que a operação foi concluída
 end Behavioral;
+
 
 
