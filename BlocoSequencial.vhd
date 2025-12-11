@@ -35,7 +35,7 @@ begin
                 -- Executa o deslocamento
                 for i in 0 to 3 loop
                     if i < shift_count then
-                        temp_result <= '0' & temp_result(7 downto 1);
+                        temp_result <= '0' & temp_result(3 downto 1);
                     end if;
                 end loop;
 
@@ -45,5 +45,6 @@ begin
         end if;
     end process;
 end Behavioral;
+
 
 
