@@ -13,7 +13,7 @@ entity BlocoSequencial is
 end BlocoSequencial;
 
 architecture Behavioral of BlocoSequencial is
-    signal shift_count : integer range 0 to 4; --se shift > 8, então houve overflow
+    signal shift_count : integer range 0 to 4; --se shift > 4, então houve overflow
     signal temp_result : STD_LOGIC_VECTOR (3 downto 0); --usado para realizar o deslocamento
     signal overflow_signal : STD_LOGIC;
 begin
@@ -45,4 +45,5 @@ begin
         end if;
     end process;
 end Behavioral;
+
 
