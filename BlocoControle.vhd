@@ -6,20 +6,20 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity BlocoControle is
     Port(
-		   A : in  STD_LOGIC_VECTOR (7 downto 0);
-           B : in  STD_LOGIC_VECTOR (7 downto 0);
+		   A : in  STD_LOGIC_VECTOR (3 downto 0);
+           B : in  STD_LOGIC_VECTOR (3 downto 0);
            Opcode : in  STD_LOGIC_VECTOR (2 downto 0);
            Clock : in  STD_LOGIC;
            Resetar_Carregar : in  STD_LOGIC;
-           Y : out  STD_LOGIC_VECTOR (7 downto 0);
+           Y : out  STD_LOGIC_VECTOR (4 downto 0);
            Done : out  STD_LOGIC;
            Overflow : out  STD_LOGIC);
 end BlocoControle;
 
 -- define a arquitetura do bloco de controle
 architecture Behavioral of BlocoControle is
-    signal A_reg, B_reg : STD_LOGIC_VECTOR (7 downto 0); -- representam o input A e o input B
-    signal Y_logico, Y_aritmetico, Y_sequencial : STD_LOGIC_VECTOR (7 downto 0); --representam o resultado de cada bloco
+    signal A_reg, B_reg : STD_LOGIC_VECTOR (3 downto 0); -- representam o input A e o input B
+    signal Y_logico, Y_aritmetico, Y_sequencial : STD_LOGIC_VECTOR (4 downto 0); --representam o resultado de cada bloco
     signal Overflow_aritmetico, Overflow_sequencial : STD_LOGIC; -- representam o overflow dos blocos aritmetico e sequencial
     signal Done_reg : STD_LOGIC; --registra o status da operação. 1 para realizado, 0 para não realizado.
     signal EnL, EnA, EnS : STD_LOGIC; --seletores para habilitar (1) ou desabilitar (0) um bloco (Lógico, Aritmetico, Sequencial)
@@ -28,30 +28,30 @@ architecture Behavioral of BlocoControle is
 
     -- declara o compoente bloco lógico
     component BlocoLogico
-        Port ( A : in  STD_LOGIC_VECTOR (7 downto 0);
-               B : in  STD_LOGIC_VECTOR (7 downto 0);
+        Port ( A : in  STD_LOGIC_VECTOR (3 downto 0);
+               B : in  STD_LOGIC_VECTOR (3 downto 0);
                Sel : in  STD_LOGIC_VECTOR (1 downto 0);
                En : in  STD_LOGIC;
-               Y : out  STD_LOGIC_VECTOR (7 downto 0));
+               Y : out  STD_LOGIC_VECTOR (4 downto 0));
     end component;
 
 	 -- declara o componente bloco aritmetico
     component BlocoAritmetico
-        Port ( A : in  STD_LOGIC_VECTOR (7 downto 0);
-               B : in  STD_LOGIC_VECTOR (7 downto 0);
+        Port ( A : in  STD_LOGIC_VECTOR (3 downto 0);
+               B : in  STD_LOGIC_VECTOR (3 downto 0);
                Sel : in  STD_LOGIC;
                En : in  STD_LOGIC;
-               Y : out  STD_LOGIC_VECTOR (7 downto 0);
+               Y : out  STD_LOGIC_VECTOR (4 downto 0);
                Overflow : out  STD_LOGIC);
     end component;
 
 	 -- declara o componente bloco sequencial
     component BlocoSequencial
-        Port ( A : in  STD_LOGIC_VECTOR (7 downto 0);
-               B : in  STD_LOGIC_VECTOR (7 downto 0);
+        Port ( A : in  STD_LOGIC_VECTOR (3 downto 0);
+               B : in  STD_LOGIC_VECTOR (3 downto 0);
                En : in  STD_LOGIC;
                Clock : in  STD_LOGIC;
-               Y : out  STD_LOGIC_VECTOR (7 downto 0);
+               Y : out  STD_LOGIC_VECTOR (4 downto 0);
                Overflow : out  STD_LOGIC);
     end component;
 
@@ -148,6 +148,7 @@ begin
     
 	 Done <= Done_reg; --seta que a operação foi concluída
 end Behavioral;
+
 
 
 
