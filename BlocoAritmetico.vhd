@@ -25,7 +25,7 @@ begin
                 Y <= temp_sum(3 downto 0);
                 Overflow <= temp_sum(4);
             else --realiza subtração
-                B_comp <= not B + "00000001";
+                B_comp <= not B + "0001";
                 temp_sum <= ('0' & A) + ('0' & B_comp);
                 Y <= temp_sum(3 downto 0);
                 Overflow <= temp_sum(4);
@@ -36,4 +36,5 @@ begin
         end if;
     end process;
 end Behavioral;
+
 
